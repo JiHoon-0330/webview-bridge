@@ -15,6 +15,12 @@ function App() {
         클릭
       </button>
       <div>test</div>
+
+      <div>
+        categories: {JSON.stringify({ isLoading: categories.isLoading })}
+      </div>
+      <div>random: {JSON.stringify({ isLoading: random.isLoading })}</div>
+
       <div>{random.data?.meals[0].strCategory}</div>
       <ul>
         {categories.data?.categories.map(({ strCategory }) => (
