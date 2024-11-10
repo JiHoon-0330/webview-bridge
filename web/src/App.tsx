@@ -9,7 +9,7 @@ function App() {
     <main className="main">
       <button
         onClick={() => {
-          window.ReactNativeWebview.postMessage("test");
+          window.ReactNativeWebView.postMessage("test");
         }}
       >
         클릭

@@ -1,7 +1,7 @@
 /// <reference types="vite/client" />
 
 interface Window {
-  ReactNativeWebview: {
+  ReactNativeWebView: {
     postMessage: (message: string) => void;
   };
 }
