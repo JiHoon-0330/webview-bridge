@@ -1,4 +1,6 @@
 class Token {
+  private listener: Set<(token: string) => void> = new Set();
+
   async getToken() {
     const token = await this.getInAppToken();
     return token;
@@ -6,8 +8,13 @@ class Token {
 
   async getInAppToken() {
     return new Promise<string | null>((resolve) => {
+      this.listener.add(resolve);
+
       window.getInAppToken = (token) => {
-        resolve(token);
+        this.listener.forEach((fn) => {
+          fn(token);
+          this.listener.delete(fn);
+        });
       };
 
       setTimeout(() => {
@@ -17,4 +24,4 @@ class Token {
   }
 }
 
-export const webToken = new Token();
+export const setWebToken = new Token();

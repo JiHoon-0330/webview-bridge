@@ -1,6 +1,11 @@
 class Token {
+  private tokenCache: Promise<string | null> | null = null;
+
   async getToken() {
-    const token = await this.getInAppToken();
+    this.tokenCache ??= this.getInAppToken();
+    const token = await this.tokenCache;
+    this.tokenCache = null;
+
     return token;
   }
 
@@ -17,4 +22,4 @@ class Token {
   }
 }
 
-export const webToken = new Token();
+export const cacheWebToken = new Token();
