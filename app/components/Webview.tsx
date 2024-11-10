@@ -1,5 +1,4 @@
 import { useRef } from "react";
-import { Alert } from "react-native";
 import { WebView, WebViewMessageEvent } from "react-native-webview";
 
 export default function Webview() {
@@ -15,20 +14,18 @@ export default function Webview() {
       ref={webviewRef}
       style={{
         width: "100%",
-        height: 100,
+        height: "100%",
       }}
-      originWhitelist={["*"]}
       source={{ uri }}
       onMessage={(e: WebViewMessageEvent) => {
         const {
           nativeEvent: { data },
         } = e;
-        Alert.alert("event");
+        console.log("onMessage");
       }}
-      domStorageEnabled={true}
-      javaScriptEnabled={true}
-      scrollEnabled={true}
-      nestedScrollEnabled={true}
+      domStorageEnabled
+      javaScriptEnabled
+      scrollEnabled
     />
   );
 }
