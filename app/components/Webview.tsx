@@ -1,9 +1,17 @@
+import { getStorage } from "@/lib/async-storage";
 import { useRef } from "react";
 import { WebView, WebViewMessageEvent } from "react-native-webview";
 
 export default function Webview() {
   const webviewRef = useRef<WebView | null>(null);
   const uri = process.env.EXPO_PUBLIC_URL;
+
+  const getToken = async () => {
+    const token = await getStorage("token");
+    webviewRef.current?.injectJavaScript(`
+      window.getInAppToken('${token ?? ""}')
+      `);
+  };
 
   if (!uri) {
     throw new Error(".env 파일에 웹뷰 URL을 설정해 주세요");
@@ -21,7 +29,11 @@ export default function Webview() {
         const {
           nativeEvent: { data },
         } = e;
-        console.log("onMessage");
+        switch (data) {
+          case "get-token":
+            getToken();
+            break;
+        }
       }}
       domStorageEnabled
       javaScriptEnabled
