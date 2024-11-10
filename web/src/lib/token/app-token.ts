@@ -1,11 +1,6 @@
 class Token {
-  private token: string | null = null;
-
   async getToken() {
-    if (this.token) return this.token;
-
     const token = await this.getInAppToken();
-    this.token = token;
 
     return token;
   }
@@ -21,4 +16,4 @@ class Token {
   }
 }
 
-export const token = new Token();
+export const appToken = new Token();

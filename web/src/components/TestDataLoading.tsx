@@ -1,22 +1,14 @@
-import "./App.css";
-import { useCategories, useRandom } from "./lib/swr/api";
+import { SWRResponse } from "swr";
+import { Category, Random } from "../lib/swr";
 
-function App() {
-  // 나중에 불러온 데이터만 화면에 표시됨
-  const categories = useCategories();
-  const random = useRandom();
+interface Props {
+  categories: SWRResponse<Category, any, any>;
+  random: SWRResponse<Random, any, any>;
+}
 
+export default function TestDataLoading({ categories, random }: Props) {
   return (
-    <main className="main">
-      <button
-        onClick={() => {
-          window.ReactNativeWebView.postMessage("test");
-        }}
-      >
-        클릭
-      </button>
-      <div>test</div>
-
+    <main>
       {/* 데이터 로딩 표시 */}
       <div>
         categories: {JSON.stringify({ isLoading: categories.isLoading })}
@@ -33,5 +25,3 @@ function App() {
     </main>
   );
 }
-
-export default App;
